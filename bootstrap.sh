@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Define the repository URL
-REPO_URL="https://github.com/JackieTreeh0rn/.dot-files"
+REPO_URL="https://github.com/BitWise-0x/.dot-files"
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # Clone the repository if it doesn't exist

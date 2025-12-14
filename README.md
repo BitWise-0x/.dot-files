@@ -18,7 +18,7 @@ This repository contains my personal configuration files and setup scripts for m
 ## Using
 
 ```bash
-git clone https://github.com/JackieTreeh0rn/.dot-files && cd .dot-files && ./bootstrap.sh
+git clone https://github.com/BitWise-0x/.dot-files && cd .dot-files && ./bootstrap.sh
 ```
 
 ## Features

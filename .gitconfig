@@ -1,6 +1,6 @@
 [user]
-	name = JackieTreeh0rn
-	email = 1523839+JackieTreeh0rn@users.noreply.github.com
+	name = BitWise-0x
+	email = 1523839+BitWise-0x@users.noreply.github.com
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

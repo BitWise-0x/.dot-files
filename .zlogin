@@ -12,7 +12,7 @@
 	
 
 	Updated by: JackieTreehorn (R0b)
-	https://github.com/JackieTreeh0rn
+	https://github.com/BitWise-0x
 	Updated: Oct 17, 2024
 	Changes:
 	- Standardized calendar location
