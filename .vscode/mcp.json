@@ -1,8 +1,86 @@
 {
-  "servers": {
-    "MCP Docs": {
-      "type": "sse",
-      "url": "https://gitmcp.io/docs"
-    }
-  }
+	"servers": {
+		"github": {
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"-e",
+				"GITHUB_PERSONAL_ACCESS_TOKEN",
+				"ghcr.io/github/github-mcp-server"
+			],
+			"env": {
+				"GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+			},
+			"type": "stdio"
+		},
+		"deepwiki": {
+			"url": "https://mcp.deepwiki.com/sse",
+			"type": "http"
+		},
+		"microsoft-docs": {
+			"url": "https://learn.microsoft.com/api/mcp",
+			"type": "http"
+		},
+		"context7": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@upstash/context7-mcp@latest"
+			],
+			"type": "stdio"
+		},
+		"imagesorcery": {
+			"command": "uvx",
+			"args": [
+				"imagesorcery-mcp"
+			],
+			"type": "stdio"
+		},
+		"memory": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@modelcontextprotocol/server-memory"
+			],
+			"env": {
+				"MEMORY_FILE_PATH": "${input:memory_file_path}"
+			},
+			"type": "stdio"
+		},
+		"mongodb": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"mongodb-mcp-server"
+			],
+			"type": "stdio"
+		},
+		"playwright": {
+			"command": "npx",
+			"args": [
+				"@playwright/mcp@latest"
+			],
+			"type": "stdio"
+		},
+		"Vercel": {
+			"url": "https://mcp.vercel.com",
+			"type": "http"
+		}
+	},
+	"inputs": [
+		{
+			"id": "github_token",
+			"type": "promptString",
+			"description": "GitHub Personal Access Token",
+			"password": true
+		},
+		{
+			"id": "memory_file_path",
+			"type": "promptString",
+			"description": "Path to the memory storage file (optional)",
+			"password": false
+		}
+	]
 }
