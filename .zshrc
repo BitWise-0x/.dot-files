@@ -5,13 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# VSCode Shell Integration
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
 
 # Exports - History
 # https://unix.stackexchange.com/questions/273861/unlimited-history-in-zsh
 export HISTFILE=~/.zsh_history
 export HISTSIZE=500000
-export HISTFILESIZE="${HISTSIZE}"
-export HISTCONTROL=ignoredups:erasedups
 export SAVEHIST=$HISTSIZE
 
 
@@ -36,7 +37,12 @@ export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
 # Python env
 export WORKON_HOME=~"/.virtualenvs"
-source virtualenvwrapper.sh
+# Only load virtualenvwrapper if it exists
+if [ -f "$HOMEBREW_PREFIX/bin/virtualenvwrapper.sh" ]; then
+  source "$HOMEBREW_PREFIX/bin/virtualenvwrapper.sh"
+elif command -v virtualenvwrapper.sh &> /dev/null; then
+  source virtualenvwrapper.sh
+fi
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
 # Node / NVM
@@ -133,12 +139,15 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 plugins=(git zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
-# source autocomplete plugin
-source $ZSH_CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-# source syntax highlighting plugin
-source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-# source auto suggestions plugin
-source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+# # source autocomplete plugin
+# source $ZSH_CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# # source syntax highlighting plugin
+# source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+# # source auto suggestions plugin
+# source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+# source oh-my-zsh (must be after plugins array)
+source $ZSH/oh-my-zsh.sh
 
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
@@ -154,11 +163,6 @@ source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# source oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-
-
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -195,5 +199,37 @@ fpath+=~/.zfunc; autoload -Uz compinit; compinit
 
 
 # FZF
-source <(fzf --zsh)
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+fi
+
+
+# Universal environment activation hooks NPM and Python
+# If .nvmrc is present, use nvm | If .venv is present, use workon
+# Example of .nvmrc content:
+#   22.18.0
+# Example of .venv content (must exist):
+#   ultimate-scraper
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  if [ -f .nvmrc ]; then
+    nvm use
+  fi
+}
+# Only add the hook if it hasn't been added already
+if [[ -z "${(M)chpwd_functions[@]:#load-nvmrc}" ]]; then
+  add-zsh-hook chpwd load-nvmrc
+fi
+load-nvmrc
+
+workon_on_cd() {
+  if [ -f .venv ]; then
+    workon $(cat .venv)
+  fi
+}
+# Only add the hook if it hasn't been added already
+if [[ -z "${(M)chpwd_functions[@]:#workon_on_cd}" ]]; then
+  add-zsh-hook chpwd workon_on_cd
+fi
+workon_on_cd

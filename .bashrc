@@ -1,6 +1,9 @@
 # thanks timo
 export PS1="\[\033[1;36m\]\u\[\033[01;37m\]@\[\033[01;34m\]\h\[\033[01;30m\][\[\033[01;37m\]\w\[\033[01;30m\]]\[\033[01;32m\]\[\033[00m\]+ "
 
+# VSCode Shell Integration
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
+
 
 # History
 # http://lpetr.org/blog/archives/preserve-bash-history
@@ -119,3 +122,20 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari SystemUIServ
 # FZF
 eval "$(fzf --bash)"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+# Universal environment activation hooks NPM and Python
+# If .nvmrc is present, use nvm | If .venv is present, use workon
+# Example of .nvmrc content:
+#   22.18.0
+# Example of .venv content (must exist):
+#   ultimate-scraper
+cd() {
+  builtin cd "$@"
+  if [ -f .nvmrc ]; then
+    nvm use
+  fi
+  if [ -f .venv ]; then
+    workon $(cat .venv)
+  fi
+}
