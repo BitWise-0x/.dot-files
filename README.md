@@ -55,11 +55,11 @@ Syncs dotfiles from the repository to your home directory and installs fonts.
 ### Fonts
 - MesloLGS NF (Regular, Bold, Italic, Bold Italic) - optimized for Powerlevel10k
 
-## Screenshot
+## Preview
 
-![Screen Shot 2024-10-24 at 02 00 50 AM](https://github.com/user-attachments/assets/f37972d2-316f-496a-88e5-9d5634d08f1a)
+![Preview](preview.png)
 
-*Terminal appearance after running the scripts.*
+<br>
 
 ## License
 
