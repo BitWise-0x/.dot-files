@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # rsync backup
-# alias backup_sync='rsync -av --exclude=".cache/*" --exclude="snap/*" --exclude="*/.venv/*" --exclude=".local/*" --exclude=".bash_it/*" --exclude=".themes/*" ---exclude=".vim/plugged/*" -exclude="Downloads/*" /home/evilkernel/ /backups/home/evilkernel/'
+# alias backup_sync='rsync -av --exclude=".cache/*" --exclude="snap/*" --exclude="*/.venv/*" --exclude=".local/*" --exclude=".bash_it/*" --exclude=".themes/*" ---exclude=".vim/plugged/*" -exclude="Downloads/*" $HOME/ /backups$HOME/'
 
 # tar backup
 # alias backup_tar="tar -zcvf ~/backups/laptop-backup-$(date +%F).tar.gz ~/.ssh/config ~/personal ~/workspace ~/Documents ~/Desktop"
 
-# alias rb_backup="tar -zcf /opt/backups/system/sys_backup-$(date +%F).tar.gz /home/evilkernel /opt/scripts /opt/workspace"
+# alias rb_backup="tar -zcf /opt/backups/system/sys_backup-$(date +%F).tar.gz $HOME /opt/scripts /opt/workspace"
 
 
 # Detect which `ls` flavor is in use
