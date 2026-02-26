@@ -5,5 +5,5 @@
 
 # # mysql
 # mysql(){
-#   docker run --rm -it jackietreehorn/mysql-client "$@"
+#   docker run --rm -it bitwise-0x/mysql-client "$@"
 # }

@@ -1,12 +1,54 @@
-# Dotfiles Repository
+<h1 align="center">
+  <img src="https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS"/>
+  <img src="https://img.shields.io/badge/Shell-121011?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Shell"/>
+  <img src="https://img.shields.io/badge/Zsh-F15A24?style=for-the-badge&logo=zsh&logoColor=white" alt="Zsh"/>
+  <br>
+  <code>.dot-files</code>
+</h1>
 
-Personal configuration files and setup scripts for macOS. Automates installation and configuration of development tools, shell environments, and editor settings.
+<p align="center">
+  <img src="https://img.shields.io/github/license/BitWise-0x/.dot-files?style=flat-square&color=blue" alt="License"/>
+  <img src="https://img.shields.io/github/last-commit/BitWise-0x/.dot-files?style=flat-square&color=green" alt="Last Commit"/>
+  <img src="https://img.shields.io/github/repo-size/BitWise-0x/.dot-files?style=flat-square&color=orange" alt="Repo Size"/>
+</p>
+
+<p align="center">
+  Personal configuration files and setup scripts for macOS.<br>
+  Automates installation and configuration of development tools, shell environments, and editor settings.
+</p>
+
+---
 
 ## Quick Start
 
 ```bash
 git clone https://github.com/BitWise-0x/.dot-files && cd .dot-files && ./bootstrap.sh
 ```
+
+## Repository Structure
+
+```
+├── vscode/              VSCode settings, keybindings, MCP, snippets, extensions
+├── homebrew/            Brewfile (all Homebrew packages)
+├── tools/               System tool configs
+│   ├── docker/            Docker daemon config
+│   ├── colima/            Colima VM settings
+│   ├── gh/                GitHub CLI config
+│   └── git/               Global gitignore rules
+├── dotfiles/            Shell & editor configs (synced to ~/)
+│   ├── .zshrc, .bashrc, .aliases, .functions, ...
+│   ├── .custom/           Custom shell scripts
+│   ├── .oh-my-zsh/        Powerlevel10k theme
+│   ├── .vim/colors/       Vim color schemes
+│   ├── .ssh/config        SSH configuration
+│   ├── .warp/             Warp terminal config
+│   └── ...
+├── .fonts/              Nerd Fonts (MesloLGS, FiraCode, Hack, etc.)
+├── bootstrap.sh         Sync repo configs → system (repo → ~/)
+└── setup.sh             Fresh install (Homebrew, Oh-My-Zsh, fonts, tools)
+```
+
+---
 
 ## Scripts
 
@@ -20,40 +62,81 @@ Installs essential tools and applications using Homebrew. Run this first on a fr
 
 ### `bootstrap.sh`
 
-Syncs dotfiles from the repository to your home directory and installs fonts.
+Syncs dotfiles and configs from the repo to your system.
 
 ```bash
 ./bootstrap.sh          # Interactive mode (prompts for confirmation)
 ./bootstrap.sh --force  # Skip confirmation prompt
 ```
 
+---
+
 ## Features
 
-### Shell Configuration
-- **Zsh**: Oh-My-Zsh with plugins (autosuggestions, autocomplete, syntax-highlighting) and Powerlevel10k theme
-- **Bash**: Custom prompt, completions, and configurations
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### Development Tools (via Homebrew)
+### Shell
+<img src="https://img.shields.io/badge/Zsh-F15A24?style=flat-square&logo=zsh&logoColor=white" alt="Zsh"/>
+<img src="https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white" alt="Bash"/>
+
+- Oh-My-Zsh with plugins (autosuggestions, autocomplete, syntax-highlighting)
+- Powerlevel10k theme
+- Custom prompt, completions, and configurations
+
+</td>
+<td width="50%" valign="top">
+
+### Editors & Terminals
+<img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VSCode"/>
+<img src="https://img.shields.io/badge/Vim-019733?style=flat-square&logo=vim&logoColor=white" alt="Vim"/>
+<img src="https://img.shields.io/badge/Warp-01A4FF?style=flat-square&logo=warp&logoColor=white" alt="Warp"/>
+<img src="https://img.shields.io/badge/iTerm2-000000?style=flat-square&logo=iterm2&logoColor=white" alt="iTerm2"/>
+
+- VSCode: settings, keybindings, MCP servers, snippets, extensions
+- iTerm2: color schemes (auto-imported), font configuration
+- Vim: custom `.vimrc` and color schemes
+- Warp & Windows Terminal configs
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### Development Tools
+<img src="https://img.shields.io/badge/Homebrew-FBB040?style=flat-square&logo=homebrew&logoColor=black" alt="Homebrew"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+
 - **Languages**: Python 3.12, Node.js, PHP, Ruby
-- **Version Management**: nvm, virtualenv, virtualenvwrapper
-- **Containers**: Docker, Docker Compose, Colima (lightweight Docker Desktop alternative)
+- **Version Mgmt**: nvm, virtualenv, virtualenvwrapper
+- **Containers**: Docker, Docker Compose, Colima
 - **Git**: git, git-lfs, GnuPG for commit signing
-- **CLI Utilities**: GNU coreutils, findutils, sed, grep, wget, rsync, fzf, tree, vim
+- **CLI**: GNU coreutils, findutils, sed, grep, wget, rsync, fzf, tree
 
-### Security/CTF Tools
-- Network: nmap, aircrack-ng, tcpflow, tcpreplay, tcptrace, socat, dns2tcp
-- Cracking: hashcat, john, sqlmap
-- Analysis: xpdf, pngcheck, knock, cifer
+</td>
+<td width="50%" valign="top">
 
-### Editor/Terminal Configuration
-- **VSCode**: Settings and extensions configuration
-- **iTerm2**: Color schemes (auto-imported), font configuration
-- **Vim**: Custom `.vimrc` and plugins
-- **Warp**: Theme configuration
-- **Windows Terminal**: Settings (for cross-platform use)
+### Security / CTF
+<img src="https://img.shields.io/badge/Nmap-4682B4?style=flat-square&logo=nmap&logoColor=white" alt="Nmap"/>
+<img src="https://img.shields.io/badge/Hashcat-3E3E3E?style=flat-square&logoColor=white" alt="Hashcat"/>
+<img src="https://img.shields.io/badge/SQLMap-CC0000?style=flat-square&logoColor=white" alt="SQLMap"/>
+
+- **Network**: nmap, aircrack-ng, tcpflow, tcpreplay, tcptrace, socat, dns2tcp
+- **Cracking**: hashcat, john, sqlmap
+- **Analysis**: xpdf, pngcheck, knock, cifer
+
+</td>
+</tr>
+</table>
 
 ### Fonts
-- MesloLGS NF (Regular, Bold, Italic, Bold Italic) - optimized for Powerlevel10k
+
+MesloLGS NF (Regular, Bold, Italic, Bold Italic) — optimized for Powerlevel10k
+
+---
 
 ## Preview
 
@@ -63,4 +146,4 @@ Syncs dotfiles from the repository to your home directory and installs fonts.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License — see [LICENSE](LICENSE) for details.

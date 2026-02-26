@@ -1,0 +1,206 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.stickyScroll.enabled": true,
+    "explorer.sortOrder": "type",
+    "explorer.confirmDragAndDrop": false,
+    "workbench.colorCustomizations": {
+        "terminal.background": "#090300",
+        "terminal.foreground": "#A5A2A2",
+        "terminalCursor.foreground": "#A5A2A2",
+        "terminal.ansiBlack": "#090300",
+        "terminal.ansiBlue": "#01A0E4",
+        "terminal.ansiBrightBlack": "#5C5855",
+        "terminal.ansiBrightBlue": "#01A0E4",
+        "terminal.ansiBrightCyan": "#B5E4F4",
+        "terminal.ansiBrightGreen": "#01A252",
+        "terminal.ansiBrightMagenta": "#A16A94",
+        "terminal.ansiBrightRed": "#DB2D20",
+        "terminal.ansiBrightWhite": "#F7F7F7",
+        "terminal.ansiBrightYellow": "#FDED02",
+        "terminal.ansiCyan": "#B5E4F4",
+        "terminal.ansiGreen": "#01A252",
+        "terminal.ansiMagenta": "#A16A94",
+        "terminal.ansiRed": "#DB2D20",
+        "terminal.ansiWhite": "#A5A2A2",
+        "terminal.ansiYellow": "#FDED02"
+    },
+    "editor.wordWrap": "on",
+    "explorer.compactFolders": false,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "git.ignoreRebaseWarning": true,
+    "git.openRepositoryInParentFolders": "never",
+    "explorer.confirmDelete": false,
+    "workbench.editorAssociations": {
+        "*.odt": "default",
+        "*.plist": "default"
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "GitHub Dark Default",
+    "workbench.startupEditor": "none",
+    "workbench.editor.splitInGroupLayout": "vertical",
+    "workbench.editor.empty.hint": "hidden",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.minimap.enabled": false,
+    "editor.accessibilitySupport": "off",
+    "editor.largeFileOptimizations": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    // "terminal.integrated.fontFamily": "Fira Code",
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.enableVisualBell": true,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "files.associations": {
+        "Procfile": "procfile",
+        "*.mdx": "markdown"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    },
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        },
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[shellscript]": {
+        "breadcrumbs.showClasses": true,
+        "breadcrumbs.showConstants": true,
+        "breadcrumbs.showArrays": true,
+        "breadcrumbs.showFunctions": true,
+        "breadcrumbs.showMethods": true,
+        "breadcrumbs.showNull": true,
+        "breadcrumbs.showFiles": true,
+        "breadcrumbs.showFields": true,
+        "breadcrumbs.showOperators": true,
+        "breadcrumbs.showVariables": true,
+        "files.eol": "\n"
+    },
+    "[markdown]": {
+        "diffEditor.ignoreTrimWhitespace": false
+    },
+    "diffEditor.renderSideBySide": false,
+    "diffEditor.maxComputationTime": 0,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "python.analysis.autoImportCompletions": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "go.toolsManagement.autoUpdate": true,
+    "cmake.configureOnOpen": true,
+    "search.defaultViewMode": "tree",
+    "scm.defaultViewMode": "tree",
+    "explorer.fileNesting.expand": false,
+    "accessibility.signals.lineHasError": {
+        "sound": "off"
+    },
+    "accessibility.signals.terminalBell": {
+        "sound": "on"
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false
+    },
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.chat.alternateGptPrompt.enabled": true,
+    "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+    "github.copilot.chat.languageContext.inline.typescript.enabled": true,
+    "github.copilot.chat.languageContext.typescript.enabled": true,
+    "github.copilot.advanced": {
+        "chatPreview": true,
+        "modelSelection": true
+    },
+    "github.codespaces.defaultExtensions": [
+        "GitHub.codespaces",
+        "GitHub.vscode-pull-request-github"
+    ],
+    "github.codespaces.showPerformanceExplorer": true,
+    "githubPullRequests.pullBranch": "never",
+    "githubPullRequests.createOnPublishBranch": "never",
+    "chat.mcp.autostart": "newAndOutdated",
+    "chat.mcp.serverSampling": {
+        "Global in Code: context7": {
+            "allowedModels": [
+                "copilot/gpt-4.1",
+                "copilot/claude-3.5-sonnet",
+                "copilot/claude-3.7-sonnet",
+                "copilot/claude-3.7-sonnet-thought",
+                "copilot/claude-sonnet-4",
+                "copilot/gemini-2.0-flash-001",
+                "copilot/gemini-2.5-pro",
+                "copilot/gpt-4o",
+                "copilot/gpt-5",
+                "copilot/o3-mini",
+                "copilot/o4-mini"
+            ]
+        }
+    },
+    "chat.mcp.gallery.enabled": true,
+    "chat.agent.maxRequests": 800,
+    "crypto-ticker.tickers": [
+        {
+            "symbol": "BTC",
+            "currency": "USD",
+            "exchange": "CCCAGG",
+            "template": "{symbol} {price}"
+        },
+        {
+            "symbol": "ETH"
+        },
+        {
+            "symbol": "XRP"
+        }
+    ],
+    "powershell.powerShellDefaultVersion": "Windows PowerShell (x64)",
+    "powershell.integratedConsole.suppressStartupBanner": true,
+    "powershell.debugging.createTemporaryIntegratedConsole": true,
+    "powershell.codeFormatting.preset": "Custom",
+    "powershell.codeFormatting.useCorrectCasing": true,
+    "powershell.codeFormatting.autoCorrectAliases": true,
+    "powershell.codeFormatting.whitespaceBeforeOpenBrace": true,
+    "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
+    "powershell.codeFormatting.whitespaceAroundOperator": true,
+    "powershell.codeFormatting.whitespaceAfterSeparator": true,
+    "powershell.codeFormatting.addWhitespaceAroundPipe": true,
+    "powershell.codeFormatting.ignoreOneLineBlock": true,
+    "powershell.codeFormatting.newLineAfterCloseBrace": false,
+    "powershell.codeFormatting.newLineAfterOpenBrace": true,
+    "powershell.codeFormatting.openBraceOnSameLine": true,
+    "powershell.codeFormatting.alignPropertyValuePairs": false,
+    "powershell.codeFolding.enable": true,
+    "powershell.scriptAnalysis.enable": true,
+    "docker.extension.enableComposeLanguageServer": false,
+    "lldb.suppressUpdateNotifications": true,
+    "vsicons.dontShowNewVersionMessage": true,
+    "redhat.telemetry.enabled": true,
+    "cron-explained.codeLens.enabled": true,
+    "markdown-pdf.outputDirectory": "~/Downloads/",
+    "settingsSync.ignoredExtensions": [],
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.selectedModel": "opus",
+    "window.newWindowProfile": "Default"
+}

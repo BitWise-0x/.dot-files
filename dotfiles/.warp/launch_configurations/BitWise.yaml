@@ -22,7 +22,7 @@
 #            - exec: code .
 
 ---
-name: Bitwise-panes
+name: Bitwise
 active_window_index: 0
 windows:
   - active_tab_index: 0
@@ -34,10 +34,9 @@ windows:
               panes:
                 - cwd: ""
                 - cwd: ""
-                - cwd: ""
-                  is_focused: true
             - split_direction: horizontal
               panes:
                 - cwd: ""
                 - cwd: ""
+                  is_focused: true
                 - cwd: ""

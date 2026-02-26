@@ -32,6 +32,9 @@ alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 alias dsdf='docker system df'
 alias dsp='docker system prune'
 
+# stacks - BitWise.lan deploy script
+stacks() { ~/_GIT/___local/orchestration/BitWise/Orchestration-BitWise/_Hosting/BitWise.lan/Deploy.sh "$@"; }
+
 # git
 alias wow='git status -s'
 

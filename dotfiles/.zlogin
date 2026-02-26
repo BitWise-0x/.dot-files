@@ -11,7 +11,7 @@
 	Originally posted: May 22
 	
 
-	Updated by: JackieTreehorn (R0b)
+	Updated by: BitWise-0x (R0b)
 	https://github.com/BitWise-0x
 	Updated: Oct 17, 2024
 	Changes:

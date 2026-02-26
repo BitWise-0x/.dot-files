@@ -1,4 +1,16 @@
+# System
 **/.DS_Store
 *.icloud
+
+# Build artifacts
 __pycache__
 node_modules
+
+# Backup archives
+*.tar.gz
+
+# Claude Code (contains credentials, OAuth tokens, auto-generated plugins)
+claude/
+
+# Scripts (working/local scripts, tracked via explicit git add)
+scripts/

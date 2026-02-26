@@ -1,70 +1,106 @@
 #!/usr/bin/env bash
+#
+# setup.sh — Fresh macOS dev environment setup.
+#
+# Installs Xcode CLT, Homebrew, packages, Oh-My-Zsh, fonts, and iTerm2 themes.
+# Run this first on a new system, then use ./bootstrap.sh to sync configs.
+#
 
-# Check for Xcode Command Line Tools
+set -euo pipefail
+
+# ============================================================================
+# 1. Xcode Command Line Tools
+# ============================================================================
+
 if ! xcode-select -p &>/dev/null; then
+    echo "Installing Xcode Command Line Tools..."
     xcode-select --install
+    # Wait for CLT installation to complete before continuing
+    until xcode-select -p &>/dev/null; do
+        sleep 5
+    done
     sudo softwareupdate -i -a
 fi
 
-# Check for Homebrew and install
+# ============================================================================
+# 2. Homebrew
+# ============================================================================
+
 if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 brew update
 brew upgrade
-# Save Homebrew’s installed location.
 HOMEBREW_PREFIX=$(brew --prefix)
+
+# ============================================================================
+# 3. Languages & Version Management
+# ============================================================================
 
 brew install python@3.12
 brew install virtualenv
 brew install virtualenvwrapper
-echo "Must add export WORKON_HOME=~"/.virtualenvs" and source virtualenvwrapper.sh to .zshrc or .bashrc"
+echo 'Add export WORKON_HOME=~/.virtualenvs and source virtualenvwrapper.sh to .zshrc or .bashrc'
 # Usage: mkvirtualenv -p python3.12 ENVNAME && workon ENVNAME
 
 brew install node
 brew install nvm
 # Usage: mkdir -p ~/.nvm && nvm install 22 && nvm use 22
 
+# ============================================================================
+# 4. GNU Core Utilities & CLI Tools
+# ============================================================================
 
-# Install GNU core utilities (those that come with macOS are outdated).
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+# GNU core utilities (macOS ships outdated versions)
+# Add $(brew --prefix coreutils)/libexec/gnubin to $PATH
 brew install coreutils
-ln -s "${HOMEBREW_PREFIX}/bin/gsha256sum" "${HOMEBREW_PREFIX}/bin/sha256sum"
-# Install GnuPG to enable PGP-signing commits.
+ln -sf "${HOMEBREW_PREFIX}/bin/gsha256sum" "${HOMEBREW_PREFIX}/bin/sha256sum"
+
+# GnuPG for PGP-signing commits
 brew install gnupg
-# Install some other useful utilities like `sponge`.
-brew install wget #--with-iri
+
+# Useful CLI utilities
+brew install wget
 brew install moreutils
 brew install tree
 brew install rsync
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+
+# GNU find, locate, updatedb, xargs (g-prefixed)
 brew install findutils
-# Install GNU `sed`, overwriting the built-in `sed`.
-brew install gnu-sed #--with-default-names
-# Install a modern version of Bash.
+
+# GNU sed
+brew install gnu-sed
+
+# Modern Bash
 brew install bash
 brew install bash-completion2
-# Switch to using brew-installed bash as default bash shell
-if ! fgrep -q "${HOMEBREW_PREFIX}/bin/bash" /etc/shells; then
-  echo "${HOMEBREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
-  # chsh -s "${HOMEBREW_PREFIX}/bin/bash"; # sticking with zsh
+
+# Add brew-installed bash to allowed shells
+if ! grep -Fq "${HOMEBREW_PREFIX}/bin/bash" /etc/shells; then
+    echo "${HOMEBREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
+    # chsh -s "${HOMEBREW_PREFIX}/bin/bash"  # sticking with zsh
 fi
-# Install more recent versions of some macOS tools.
-brew install vim #--with-override-system-vi
+
+# Updated macOS tools
+brew install vim
 brew install grep
 brew install openssh
 brew install screen
 brew install php
 brew install gmp
 brew install gnu-tar
-# Install font tools.
+
+# Font tools
 brew tap bramstein/webfonttools
 brew install sfnt2woff
 brew install sfnt2woff-zopfli
 brew install woff2
 
-# Install some CTF tools; see https://github.com/ctfs/write-ups.
+# ============================================================================
+# 5. Security / CTF Tools
+# ============================================================================
+
 brew install aircrack-ng
 brew install bfg
 # brew install binutils
@@ -87,76 +123,112 @@ brew install sqlmap
 brew install tcpflow
 brew install tcpreplay
 brew install tcptrace
-# brew install ucspi-tcp # `tcpserver` etc.
+# brew install ucspi-tcp  # tcpserver etc.
 brew install xpdf
 brew install xz
 brew install ack
 brew install lynx
-#Install GIT binaries
+
+# ============================================================================
+# 6. Git
+# ============================================================================
+
 brew install git
 brew install git-lfs
 brew install gs
-# Docker binaries
+
+# ============================================================================
+# 7. Docker & Colima
+# ============================================================================
+
 brew install docker
 brew install docker-compose
 brew install docker-completion
 brew install docker-buildx
-# Colima (lima linux - small footprint vm's - using for local docker context in liue of Docker Desktop)
+# Colima — lightweight VM for local Docker context (in lieu of Docker Desktop)
 brew install colima
-# Install Fuzzy Finder (finder for shell commands) https://github.com/junegunn/fzf?tab=readme-ov-file#usage
+
+# ============================================================================
+# 8. Other Tools
+# ============================================================================
+
+# Fuzzy finder for shell — https://github.com/junegunn/fzf
 brew install fzf
-${HOMEBREW_PREFIX}/opt/fzf/install
-# Mooooo
+"${HOMEBREW_PREFIX}/opt/fzf/install" --all --no-update-rc
+
 brew install cowsay
-# Install iTerm
 brew install --cask --appdir="/Applications" iterm2
 brew install ffmpeg
 brew install asitop
 # brew install --cask --appdir="/Applications" multipass
 # brew install --cask --appdir="/Applications" visual-studio-code
 # brew install --cask --appdir="/Applications" spotify
-brew install --cask uninstallpkg  # uninstaller for .pkg's - has GUI
+brew install --cask uninstallpkg  # GUI uninstaller for .pkg files
 
-# Remove outdated versions from the cellar.
 brew cleanup
 
+# ============================================================================
+# 9. Oh-My-Zsh
+# ============================================================================
 
-# Install Oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# Set prelimnary ZSH variables for configuring
 ZSH="${HOME}/.oh-my-zsh"
 ZSH_CUSTOM="${ZSH}/custom"
 
-# Oh-my-zsh plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM}/plugins/zsh-autosuggestions
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git ${ZSH_CUSTOM}/plugins/zsh-autocomplete
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
+if [[ ! -d "$ZSH" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
 
-# Theme - powerlevel10k
+# Plugins
+[[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]] || \
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+[[ -d "${ZSH_CUSTOM}/plugins/zsh-autocomplete" ]] || \
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git "${ZSH_CUSTOM}/plugins/zsh-autocomplete"
+[[ -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]] || \
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
+
+# Theme — powerlevel10k
 # To configure, run `p10k configure` or edit ~/.p10k.zsh
-git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM}/themes/powerlevel10k
-echo "You must set ZSH_THEME="powerlevel10k/powerlevel10k" in ~/.zshrc"
+[[ -d "${ZSH_CUSTOM}/themes/powerlevel10k" ]] || \
+    git clone https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM}/themes/powerlevel10k"
+echo 'Set ZSH_THEME="powerlevel10k/powerlevel10k" in ~/.zshrc'
 
+# ============================================================================
+# 10. Fonts
+# ============================================================================
 
-# Install Fonts
-# References: https://github.com/powerline/fonts
-echo "Download and manually install fonts in your OS after..."
-mkdir -p "${HOME}/.fonts"
-curl --silent https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf --output ${HOME}/.fonts
-curl --silent https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf --output ${HOME}/.fonts
-curl --silent https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf --output ${HOME}/.fonts
-curl --silent https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf --output ${HOME}/.fonts
-cp ${HOME}/.fonts/* $HOME/Library/Fonts/
-echo "Select font in iTERM2: Term2 -> Preferences -> Profile > Text -> Font"
-echo "Select font in VSCode: settings.json -> "editor.fontFamily": "MesloLGS NF" and "terminal.integrated.fontFamily": "MesloLGS NF""
+FONT_DIR="${HOME}/.fonts"
+mkdir -p "$FONT_DIR"
 
-# iterm2 customization
-git clone https://github.com/mbadolato/iTerm2-Color-Schemes ${HOME}/Downloads/iterm2-color-schemes
-${HOME}/Downloads/iterm2-color-schemes/tools/import-scheme.sh -v ${HOME}/Downloads/iterm2-color-schemes/schemes/*
-rm -rf ${HOME}/Downloads/iterm2-color-schemes
-echo "You must restart iterm2 and change your theme at:"
-echo "iTerm2 > Preferences > Profile > Colors > Color Presets -> Import: Argonaut"
+curl -fsSL -o "${FONT_DIR}/MesloLGS NF Regular.ttf" \
+    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+curl -fsSL -o "${FONT_DIR}/MesloLGS NF Bold.ttf" \
+    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
+curl -fsSL -o "${FONT_DIR}/MesloLGS NF Italic.ttf" \
+    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+curl -fsSL -o "${FONT_DIR}/MesloLGS NF Bold Italic.ttf" \
+    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
 
-echo -#####################################-
-echo run ./bootstrap.sh to pull .dot files
-echo -#####################################-
+cp "${FONT_DIR}/"* "$HOME/Library/Fonts/"
+echo 'Select font in iTerm2: Preferences > Profile > Text > Font > MesloLGS NF'
+echo 'Select font in VSCode: settings.json > "editor.fontFamily": "MesloLGS NF"'
+
+# ============================================================================
+# 11. iTerm2 Color Schemes
+# ============================================================================
+
+ITERM_SCHEMES="${HOME}/Downloads/iterm2-color-schemes"
+if [[ ! -d "$ITERM_SCHEMES" ]]; then
+    git clone https://github.com/mbadolato/iTerm2-Color-Schemes "$ITERM_SCHEMES"
+fi
+"${ITERM_SCHEMES}/tools/import-scheme.sh" -v "${ITERM_SCHEMES}/schemes/"*
+rm -rf "$ITERM_SCHEMES"
+echo "Restart iTerm2 and set theme: Preferences > Profile > Colors > Color Presets > Argonaut"
+
+# ============================================================================
+# Done
+# ============================================================================
+
+echo ""
+echo "#####################################"
+echo "  Run ./bootstrap.sh to sync configs"
+echo "#####################################"
