@@ -73,6 +73,10 @@ Syncs dotfiles and configs from the repo to your system.
 
 ## Features
 
+<table>
+<tr>
+<td valign="top">
+
 ### Shell
 
 <img src="https://img.shields.io/badge/Zsh-F15A24?style=flat-square&logo=zsh&logoColor=white" alt="Zsh"/>
@@ -81,6 +85,11 @@ Syncs dotfiles and configs from the repo to your system.
 - Oh-My-Zsh with plugins (autosuggestions, autocomplete, syntax-highlighting)
 - Powerlevel10k theme
 - Custom prompt, completions, and configurations
+
+</td>
+</tr>
+<tr>
+<td valign="top">
 
 ### Editors & Terminals
 
@@ -93,6 +102,11 @@ Syncs dotfiles and configs from the repo to your system.
 - iTerm2: color schemes (auto-imported), font configuration
 - Vim: custom `.vimrc` and color schemes
 - Warp & Windows Terminal configs
+
+</td>
+</tr>
+<tr>
+<td valign="top">
 
 ### Development Tools
 
@@ -107,6 +121,11 @@ Syncs dotfiles and configs from the repo to your system.
 - **Git**: git, git-lfs, GnuPG for commit signing
 - **CLI**: GNU coreutils, findutils, sed, grep, wget, rsync, fzf, tree
 
+</td>
+</tr>
+<tr>
+<td valign="top">
+
 ### Security / CTF
 
 <img src="https://img.shields.io/badge/Nmap-4682B4?style=flat-square&logo=nmap&logoColor=white" alt="Nmap"/>
@@ -117,9 +136,18 @@ Syncs dotfiles and configs from the repo to your system.
 - **Cracking**: hashcat, john, sqlmap
 - **Analysis**: xpdf, pngcheck, knock, cifer
 
+</td>
+</tr>
+<tr>
+<td valign="top">
+
 ### Fonts
 
 MesloLGS NF (Regular, Bold, Italic, Bold Italic) — optimized for Powerlevel10k
+
+</td>
+</tr>
+</table>
 
 ---
 
