@@ -7,9 +7,9 @@
 </h1>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/BitWise-0x/.dot-files?style=flat-square&color=blue" alt="License"/>
-  <img src="https://img.shields.io/github/last-commit/BitWise-0x/.dot-files?style=flat-square&color=green" alt="Last Commit"/>
-  <img src="https://img.shields.io/github/repo-size/BitWise-0x/.dot-files?style=flat-square&color=orange" alt="Repo Size"/>
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="License"/>
+  <img src="https://img.shields.io/badge/platform-macOS-000000?style=flat-square&logo=apple&logoColor=white" alt="macOS"/>
+  <img src="https://img.shields.io/badge/shell-zsh-F15A24?style=flat-square" alt="Zsh"/>
 </p>
 
 <p align="center">
@@ -73,11 +73,8 @@ Syncs dotfiles and configs from the repo to your system.
 
 ## Features
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
 ### Shell
+
 <img src="https://img.shields.io/badge/Zsh-F15A24?style=flat-square&logo=zsh&logoColor=white" alt="Zsh"/>
 <img src="https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white" alt="Bash"/>
 
@@ -85,10 +82,8 @@ Syncs dotfiles and configs from the repo to your system.
 - Powerlevel10k theme
 - Custom prompt, completions, and configurations
 
-</td>
-<td width="50%" valign="top">
-
 ### Editors & Terminals
+
 <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VSCode"/>
 <img src="https://img.shields.io/badge/Vim-019733?style=flat-square&logo=vim&logoColor=white" alt="Vim"/>
 <img src="https://img.shields.io/badge/Warp-01A4FF?style=flat-square&logo=warp&logoColor=white" alt="Warp"/>
@@ -99,12 +94,8 @@ Syncs dotfiles and configs from the repo to your system.
 - Vim: custom `.vimrc` and color schemes
 - Warp & Windows Terminal configs
 
-</td>
-</tr>
-<tr>
-<td width="50%" valign="top">
-
 ### Development Tools
+
 <img src="https://img.shields.io/badge/Homebrew-FBB040?style=flat-square&logo=homebrew&logoColor=black" alt="Homebrew"/>
 <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker"/>
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js"/>
@@ -116,10 +107,8 @@ Syncs dotfiles and configs from the repo to your system.
 - **Git**: git, git-lfs, GnuPG for commit signing
 - **CLI**: GNU coreutils, findutils, sed, grep, wget, rsync, fzf, tree
 
-</td>
-<td width="50%" valign="top">
-
 ### Security / CTF
+
 <img src="https://img.shields.io/badge/Nmap-4682B4?style=flat-square&logo=nmap&logoColor=white" alt="Nmap"/>
 <img src="https://img.shields.io/badge/Hashcat-3E3E3E?style=flat-square&logoColor=white" alt="Hashcat"/>
 <img src="https://img.shields.io/badge/SQLMap-CC0000?style=flat-square&logoColor=white" alt="SQLMap"/>
@@ -127,10 +116,6 @@ Syncs dotfiles and configs from the repo to your system.
 - **Network**: nmap, aircrack-ng, tcpflow, tcpreplay, tcptrace, socat, dns2tcp
 - **Cracking**: hashcat, john, sqlmap
 - **Analysis**: xpdf, pngcheck, knock, cifer
-
-</td>
-</tr>
-</table>
 
 ### Fonts
 
