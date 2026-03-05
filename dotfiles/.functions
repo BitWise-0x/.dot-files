@@ -183,11 +183,6 @@ function tre() {
 #   aws --profile dev ssm start-session --target ${instance_id}
 # }
 
-# backup to tarball
-# backup_tar(){
-#   tar -zcvf ~/backups/laptop-backup-$(date +%F).tar.gz ~/.custom/functions.sh ~/.custom/exports.sh ~/.custom/aliases.sh ~/.custom/functions.sh ~/.zshrc ~/.zsh_history ~/.vimrc ~/.oh-my-zsh/oh-my-zsh.sh ~/.ssh/config ~/personal ~/workspace ~/Documents ~/Desktop ~/howto
-# }
-
 # sync backups to backups server
 # backup_sync_home(){
 #   rsync -av ~/backups/ backups:/disk2/backups/laptop/
