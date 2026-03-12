@@ -108,12 +108,15 @@ sync_all() {
             log "~/.ssh/config"
         fi
 
-        # .oh-my-zsh (p10k theme only)
+        # .oh-my-zsh (p10k theme only — requires Oh-My-Zsh + p10k to be installed)
         P10K="$REPO_DIR/dotfiles/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
         if [[ -f "$P10K" ]]; then
-            mkdir -p "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
-            cp "$P10K" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
-            log "~/.oh-my-zsh (p10k theme)"
+            if [[ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
+                cp "$P10K" "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
+                log "~/.oh-my-zsh (p10k theme)"
+            else
+                warn "Oh-My-Zsh powerlevel10k not installed — skipping p10k theme sync"
+            fi
         fi
 
         # local/share/calendar/
@@ -221,7 +224,15 @@ sync_all() {
 
     if [[ -d "$REPO_DIR/.fonts" ]]; then
         mkdir -p "$HOME/Library/Fonts"
-        find "$REPO_DIR/.fonts" -type f \( -name "*.ttf" -o -name "*.otf" -o -name "*.woff" -o -name "*.woff2" \) -exec cp {} "$HOME/Library/Fonts/" \; 2>/dev/null && log "Fonts installed" || warn "No fonts to install"
+        font_count=0
+        while IFS= read -r -d '' font_file; do
+            cp "$font_file" "$HOME/Library/Fonts/" && ((font_count++)) || warn "Failed to copy $(basename "$font_file")"
+        done < <(find "$REPO_DIR/.fonts" -type f \( -name "*.ttf" -o -name "*.otf" -o -name "*.woff" -o -name "*.woff2" \) -print0)
+        if (( font_count > 0 )); then
+            log "Fonts installed ($font_count files)"
+        else
+            warn "No fonts to install"
+        fi
     else
         warn ".fonts/ not found in repo"
     fi

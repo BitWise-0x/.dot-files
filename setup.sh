@@ -15,8 +15,13 @@ set -euo pipefail
 if ! xcode-select -p &>/dev/null; then
     echo "Installing Xcode Command Line Tools..."
     xcode-select --install
-    # Wait for CLT installation to complete before continuing
+    # Wait for CLT installation to complete (timeout after 30 minutes)
+    tries=0
     until xcode-select -p &>/dev/null; do
+        if (( tries++ >= 360 )); then
+            echo "ERROR: Xcode CLT installation timed out after 30 minutes."
+            exit 1
+        fi
         sleep 5
     done
     sudo softwareupdate -i -a
@@ -154,7 +159,9 @@ brew install colima
 
 # Fuzzy finder for shell — https://github.com/junegunn/fzf
 brew install fzf
-"${HOMEBREW_PREFIX}/opt/fzf/install" --all --no-update-rc
+if [[ -f "${HOMEBREW_PREFIX}/opt/fzf/install" ]]; then
+    "${HOMEBREW_PREFIX}/opt/fzf/install" --all --no-update-rc
+fi
 
 brew install cowsay
 brew install --cask --appdir="/Applications" iterm2
@@ -198,15 +205,20 @@ echo 'Set ZSH_THEME="powerlevel10k/powerlevel10k" in ~/.zshrc'
 
 FONT_DIR="${HOME}/.fonts"
 mkdir -p "$FONT_DIR"
+mkdir -p "$HOME/Library/Fonts"
 
-curl -fsSL -o "${FONT_DIR}/MesloLGS NF Regular.ttf" \
-    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
-curl -fsSL -o "${FONT_DIR}/MesloLGS NF Bold.ttf" \
-    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf"
-curl -fsSL -o "${FONT_DIR}/MesloLGS NF Italic.ttf" \
-    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
-curl -fsSL -o "${FONT_DIR}/MesloLGS NF Bold Italic.ttf" \
-    "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+MESLO_BASE="https://github.com/romkatv/powerlevel10k-media/raw/master"
+declare -a MESLO_FONTS=(
+    "MesloLGS NF Regular.ttf"
+    "MesloLGS NF Bold.ttf"
+    "MesloLGS NF Italic.ttf"
+    "MesloLGS NF Bold Italic.ttf"
+)
+for font in "${MESLO_FONTS[@]}"; do
+    if [[ ! -f "${FONT_DIR}/${font}" ]]; then
+        curl -fsSL -o "${FONT_DIR}/${font}" "${MESLO_BASE}/$(echo "$font" | sed 's/ /%20/g')"
+    fi
+done
 
 cp "${FONT_DIR}/"* "$HOME/Library/Fonts/"
 echo 'Select font in iTerm2: Preferences > Profile > Text > Font > MesloLGS NF'
