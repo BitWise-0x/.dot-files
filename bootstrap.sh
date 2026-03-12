@@ -2,7 +2,7 @@
 #
 # bootstrap.sh — Syncs dotfiles and configs from this repo to your system.
 #
-# Usage: ./bootstrap.sh [--force|-f]
+# Usage: ./bootstrap.sh [--force|-f] [--no-brew]
 #
 # Reads from the organized repo structure:
 #   dotfiles/  → ~/           (shell, editor, CLI configs)
@@ -16,6 +16,14 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$SCRIPT_DIR"
+SKIP_BREW=false
+
+# Parse flags
+for arg in "$@"; do
+    case "$arg" in
+        --no-brew) SKIP_BREW=true ;;
+    esac
+done
 
 # Define the repository URL
 REPO_URL="https://github.com/BitWise-0x/.dot-files"
@@ -211,8 +219,10 @@ sync_all() {
     # ==================================================================
     info "--- Homebrew ---"
 
-    if [[ -f "$REPO_DIR/homebrew/Brewfile" ]] && command -v brew &>/dev/null; then
-        brew bundle --file="$REPO_DIR/homebrew/Brewfile" 2>/dev/null && log "Brewfile" || warn "Some brew packages failed"
+    if [[ "$SKIP_BREW" = true ]]; then
+        warn "Homebrew skipped (--no-brew)"
+    elif [[ -f "$REPO_DIR/homebrew/Brewfile" ]] && command -v brew &>/dev/null; then
+        brew bundle --no-upgrade --file="$REPO_DIR/homebrew/Brewfile" 2>/dev/null && log "Brewfile" || warn "Some brew packages failed"
     else
         warn "Brewfile or Homebrew not found"
     fi
