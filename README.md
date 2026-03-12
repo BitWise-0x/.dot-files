@@ -97,6 +97,18 @@ Restores from a backup archive or directory.
 
 ---
 
+## Compatibility
+
+| | Apple Silicon (ARM) | Intel (x86) |
+|---|---|---|
+| **Dotfiles & configs** (`--no-brew`) | Full support | Full support |
+| **Homebrew packages** (`setup.sh` / Brewfile) | Full support (bottles) | macOS 14+ recommended; macOS 13 compiles from source (slow) |
+| **ARM-only packages** (e.g. `asitop`) | Installed | Automatically skipped |
+
+> **Secondary machines**: If you only need configs in sync, use `./bootstrap.sh --no-brew` to skip Homebrew entirely.
+
+---
+
 ## Features
 
 <table>
