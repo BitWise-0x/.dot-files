@@ -45,6 +45,9 @@ git clone https://github.com/BitWise-0x/.dot-files && cd .dot-files && ./bootstr
 │   ├── .warp/             Warp terminal config
 │   └── ...
 ├── .fonts/              Nerd Fonts (MesloLGS, FiraCode, Hack, etc.)
+├── scripts/             Backup & restore utilities
+│   ├── backup-dev-env.sh  Full dev environment backup
+│   └── restore-dev-env.sh Restore from backup archive
 ├── bootstrap.sh         Sync repo configs → system (repo → ~/)
 └── setup.sh             Fresh install (Homebrew, Oh-My-Zsh, fonts, tools)
 ```
@@ -66,8 +69,30 @@ Installs essential tools and applications using Homebrew. Run this first on a fr
 Syncs dotfiles and configs from the repo to your system.
 
 ```bash
-./bootstrap.sh          # Interactive mode (prompts for confirmation)
-./bootstrap.sh --force  # Skip confirmation prompt
+./bootstrap.sh              # Interactive mode (prompts for confirmation)
+./bootstrap.sh --force      # Skip confirmation prompt
+./bootstrap.sh --no-brew    # Skip Homebrew install/sync (faster re-runs)
+./bootstrap.sh -f --no-brew # Combine flags
+```
+
+### `scripts/backup-dev-env.sh`
+
+Backs up your full dev environment (VSCode, Homebrew, dotfiles, tool configs) to a timestamped archive.
+
+```bash
+./scripts/backup-dev-env.sh              # Create backup archive
+./scripts/backup-dev-env.sh --sync-repo  # Also sync changes back to repo
+./scripts/backup-dev-env.sh --no-archive # Keep as directory (no .tar.gz)
+```
+
+### `scripts/restore-dev-env.sh`
+
+Restores from a backup archive or directory.
+
+```bash
+./scripts/restore-dev-env.sh <backup.tar.gz>        # Restore from archive
+./scripts/restore-dev-env.sh <backup-dir> --dry-run  # Preview without changes
+./scripts/restore-dev-env.sh <backup> --no-brew      # Skip Homebrew restore
 ```
 
 ---
