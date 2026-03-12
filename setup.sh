@@ -6,7 +6,16 @@
 # Run this first on a new system, then use ./bootstrap.sh to sync configs.
 #
 
-set -euo pipefail
+set -uo pipefail
+
+# Track failures but don't exit on them
+BREW_FAILURES=()
+brew_install() {
+    if ! brew install "$@" 2>&1; then
+        BREW_FAILURES+=("$*")
+        echo "  ⚠ brew install $* failed — continuing"
+    fi
+}
 
 # ============================================================================
 # 1. Xcode Command Line Tools
@@ -43,14 +52,14 @@ HOMEBREW_PREFIX=$(brew --prefix)
 # 3. Languages & Version Management
 # ============================================================================
 
-brew install python@3.12
-brew install virtualenv
-brew install virtualenvwrapper
+brew_install python@3.12
+brew_install virtualenv
+brew_install virtualenvwrapper
 echo 'Add export WORKON_HOME=~/.virtualenvs and source virtualenvwrapper.sh to .zshrc or .bashrc'
 # Usage: mkvirtualenv -p python3.12 ENVNAME && workon ENVNAME
 
-brew install node
-brew install nvm
+brew_install node
+brew_install nvm
 # Usage: mkdir -p ~/.nvm && nvm install 22 && nvm use 22
 
 # ============================================================================
@@ -59,27 +68,27 @@ brew install nvm
 
 # GNU core utilities (macOS ships outdated versions)
 # Add $(brew --prefix coreutils)/libexec/gnubin to $PATH
-brew install coreutils
-ln -sf "${HOMEBREW_PREFIX}/bin/gsha256sum" "${HOMEBREW_PREFIX}/bin/sha256sum"
+brew_install coreutils
+ln -sf "${HOMEBREW_PREFIX}/bin/gsha256sum" "${HOMEBREW_PREFIX}/bin/sha256sum" 2>/dev/null || true
 
 # GnuPG for PGP-signing commits
-brew install gnupg
+brew_install gnupg
 
 # Useful CLI utilities
-brew install wget
-brew install moreutils
-brew install tree
-brew install rsync
+brew_install wget
+brew_install moreutils
+brew_install tree
+brew_install rsync
 
 # GNU find, locate, updatedb, xargs (g-prefixed)
-brew install findutils
+brew_install findutils
 
 # GNU sed
-brew install gnu-sed
+brew_install gnu-sed
 
 # Modern Bash
-brew install bash
-brew install bash-completion2
+brew_install bash
+brew_install bash-completion2
 
 # Add brew-installed bash to allowed shells
 if ! grep -Fq "${HOMEBREW_PREFIX}/bin/bash" /etc/shells; then
@@ -88,89 +97,89 @@ if ! grep -Fq "${HOMEBREW_PREFIX}/bin/bash" /etc/shells; then
 fi
 
 # Updated macOS tools
-brew install vim
-brew install grep
-brew install openssh
-brew install screen
-brew install php
-brew install gmp
-brew install gnu-tar
+brew_install vim
+brew_install grep
+brew_install openssh
+brew_install screen
+brew_install php
+brew_install gmp
+brew_install gnu-tar
 
 # Font tools
 brew tap bramstein/webfonttools
-brew install sfnt2woff
-brew install sfnt2woff-zopfli
-brew install woff2
+brew_install sfnt2woff
+brew_install sfnt2woff-zopfli
+brew_install woff2
 
 # ============================================================================
 # 5. Security / CTF Tools
 # ============================================================================
 
-brew install aircrack-ng
-brew install bfg
-# brew install binutils
-# brew install binwalk
-brew install cifer
-# brew install dex2jar
-brew install dns2tcp
-# brew install fcrackzip
-# brew install foremost
-brew install hashcat
-# brew install hydra
-brew install ruby
-brew install john
-brew install knock
-brew install netpbm
-brew install nmap
-brew install pngcheck
-brew install socat
-brew install sqlmap
-brew install tcpflow
-brew install tcpreplay
-brew install tcptrace
-# brew install ucspi-tcp  # tcpserver etc.
-brew install xpdf
-brew install xz
-brew install ack
-brew install lynx
+brew_install aircrack-ng
+brew_install bfg
+# brew_install binutils
+# brew_install binwalk
+brew_install cifer
+# brew_install dex2jar
+brew_install dns2tcp
+# brew_install fcrackzip
+# brew_install foremost
+brew_install hashcat
+# brew_install hydra
+brew_install ruby
+brew_install john
+brew_install knock
+brew_install netpbm
+brew_install nmap
+brew_install pngcheck
+brew_install socat
+brew_install sqlmap
+brew_install tcpflow
+brew_install tcpreplay
+brew_install tcptrace
+# brew_install ucspi-tcp  # tcpserver etc.
+brew_install xpdf
+brew_install xz
+brew_install ack
+brew_install lynx
 
 # ============================================================================
 # 6. Git
 # ============================================================================
 
-brew install git
-brew install git-lfs
-brew install gs
+brew_install git
+brew_install git-lfs
+brew_install gs
 
 # ============================================================================
 # 7. Docker & Colima
 # ============================================================================
 
-brew install docker
-brew install docker-compose
-brew install docker-completion
-brew install docker-buildx
+brew_install docker
+brew_install docker-compose
+brew_install docker-completion
+brew_install docker-buildx
 # Colima — lightweight VM for local Docker context (in lieu of Docker Desktop)
-brew install colima
+brew_install colima
 
 # ============================================================================
 # 8. Other Tools
 # ============================================================================
 
 # Fuzzy finder for shell — https://github.com/junegunn/fzf
-brew install fzf
+brew_install fzf
 if [[ -f "${HOMEBREW_PREFIX}/opt/fzf/install" ]]; then
     "${HOMEBREW_PREFIX}/opt/fzf/install" --all --no-update-rc
 fi
 
-brew install cowsay
-brew install --cask --appdir="/Applications" iterm2
-brew install ffmpeg
-brew install asitop
-# brew install --cask --appdir="/Applications" multipass
-# brew install --cask --appdir="/Applications" visual-studio-code
-# brew install --cask --appdir="/Applications" spotify
-brew install --cask uninstallpkg  # GUI uninstaller for .pkg files
+brew_install cowsay
+brew_install --cask --appdir="/Applications" iterm2
+brew_install ffmpeg
+brew_install asitop
+# brew_install --cask --appdir="/Applications" multipass
+# brew_install --cask --appdir="/Applications" visual-studio-code
+# brew_install --cask --appdir="/Applications" spotify
+brew_install --cask uninstallpkg  # GUI uninstaller for .pkg files
 
 brew cleanup
 
@@ -241,6 +250,11 @@ echo "Restart iTerm2 and set theme: Preferences > Profile > Colors > Color Prese
 # ============================================================================
 
 echo ""
+if (( ${#BREW_FAILURES[@]} > 0 )); then
+    echo "⚠ The following brew packages failed to install:"
+    printf "  - %s\n" "${BREW_FAILURES[@]}"
+    echo ""
+fi
 echo "#####################################"
 echo "  Run ./bootstrap.sh to sync configs"
 echo "#####################################"
