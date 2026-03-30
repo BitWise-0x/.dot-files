@@ -13,6 +13,7 @@ docker.docker
 editorconfig.editorconfig
 esbenp.prettier-vscode
 formulahendry.code-runner
+george-alisson.html-preview-vscode
 github.copilot-chat
 github.github-vscode-theme
 golang.go

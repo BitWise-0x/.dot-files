@@ -2,3 +2,8 @@
 if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
+
+# MOTD banner (shared with zsh)
+if [ -f ~/.zlogin ]; then
+	. ~/.zlogin
+fi

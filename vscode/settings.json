@@ -37,7 +37,6 @@
         "*.plist": "default"
     },
     "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "GitHub Dark Default",
     "workbench.startupEditor": "none",
     "workbench.editor.splitInGroupLayout": "vertical",
     "workbench.editor.empty.hint": "hidden",
@@ -200,7 +199,9 @@
     "cron-explained.codeLens.enabled": true,
     "markdown-pdf.outputDirectory": "~/Downloads/",
     "settingsSync.ignoredExtensions": [],
+    "claudeCode.selectedModel": "default",
+    "window.newWindowProfile": "Default",
     "claudeCode.preferredLocation": "panel",
-    "claudeCode.selectedModel": "claude-opus-4-6",
-    "window.newWindowProfile": "Default"
+    "workbench.colorTheme": "GitHub Dark Default",
+    "chat.viewSessions.orientation": "stacked"
 }
