@@ -12,5 +12,17 @@ node_modules
 # Claude Code (contains credentials, OAuth tokens, auto-generated plugins)
 claude/
 
+# Codex (OAuth tokens in auth.json, session logs)
+codex/
+
+# Tool configs (gh hosts, docker registry auths — may contain tokens)
+tools/
+
+# iTerm2 preferences (machine-specific binary plist)
+iterm2/
+
+# GitKraken workspaces (PII: local filesystem paths)
+gk/
+
 # Scripts (working/local scripts, tracked via explicit git add)
 scripts/
