@@ -3,19 +3,19 @@
 # BitWise-0x (R0b) | https://github.com/BitWise-0x
 # Compatible with bash (sourced from .bash_profile)
 
-# Define terminal colors — purple/violet gradient palette
+# Define terminal colors — ocean blue gradient palette (Hue 210-228)
 _reset="\e[0m"
 _bold="\e[1m"
 _white="\e[39m"
 _dim="\e[38;5;243m"
-_ice="\e[38;5;189m"
-_lav="\e[38;5;183m"
-_periwinkle="\e[38;5;147m"
-_lilac="\e[38;5;141m"
-_violet="\e[38;5;135m"
-_purple="\e[38;5;98m"
-_deep="\e[38;5;56m"
-_indigo="\e[38;5;54m"
+_ice="\e[38;5;195m"
+_lav="\e[38;5;159m"
+_periwinkle="\e[38;5;117m"
+_lilac="\e[38;5;81m"
+_violet="\e[38;5;39m"
+_purple="\e[38;5;38m"
+_deep="\e[38;5;31m"
+_indigo="\e[38;5;24m"
 
 # Base dir for calendars
 calendarDir="$HOME/local/share/calendar"
