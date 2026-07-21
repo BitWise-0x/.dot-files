@@ -42,6 +42,18 @@ fi
 
 if ! command -v brew &>/dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # A fresh install isn't on PATH in this shell yet (Apple Silicon:
+    # /opt/homebrew, Intel: /usr/local)
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+fi
+
+if ! command -v brew &>/dev/null; then
+    echo "ERROR: Homebrew is not available — install failed or was cancelled."
+    exit 1
 fi
 
 brew update
@@ -106,7 +118,7 @@ brew_install gmp
 brew_install gnu-tar
 
 # Font tools
-brew tap bramstein/webfonttools
+brew tap bramstein/webfonttools || BREW_FAILURES+=("tap bramstein/webfonttools")
 brew_install sfnt2woff
 brew_install sfnt2woff-zopfli
 brew_install woff2
@@ -229,7 +241,7 @@ for font in "${MESLO_FONTS[@]}"; do
     fi
 done
 
-cp "${FONT_DIR}/"* "$HOME/Library/Fonts/"
+cp "${FONT_DIR}/"* "$HOME/Library/Fonts/" 2>/dev/null || echo "⚠ No fonts to copy — downloads may have failed"
 echo 'Select font in iTerm2: Preferences > Profile > Text > Font > MesloLGS NF'
 echo 'Select font in VSCode: settings.json > "editor.fontFamily": "MesloLGS NF"'
 
@@ -241,7 +253,11 @@ ITERM_SCHEMES="${HOME}/Downloads/iterm2-color-schemes"
 if [[ ! -d "$ITERM_SCHEMES" ]]; then
     git clone https://github.com/mbadolato/iTerm2-Color-Schemes "$ITERM_SCHEMES"
 fi
-"${ITERM_SCHEMES}/tools/import-scheme.sh" -v "${ITERM_SCHEMES}/schemes/"*
+if [[ -x "${ITERM_SCHEMES}/tools/import-scheme.sh" ]]; then
+    "${ITERM_SCHEMES}/tools/import-scheme.sh" -v "${ITERM_SCHEMES}/schemes/"*
+else
+    echo "⚠ iTerm2 color schemes unavailable (clone failed?) — skipping import"
+fi
 rm -rf "$ITERM_SCHEMES"
 echo "Restart iTerm2 and set theme: Preferences > Profile > Colors > Color Presets > Argonaut"
 

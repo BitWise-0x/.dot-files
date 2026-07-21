@@ -14,14 +14,17 @@
 
 set -uo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 REPO_DIR="$SCRIPT_DIR"
 SKIP_BREW=false
+FORCE=false
 
 # Parse flags
 for arg in "$@"; do
     case "$arg" in
-        --no-brew) SKIP_BREW=true ;;
+        --force|-f) FORCE=true ;;
+        --no-brew)  SKIP_BREW=true ;;
+        *)          echo "Unknown option: $arg"; exit 1 ;;
     esac
 done
 
@@ -38,6 +41,16 @@ NC='\033[0m'
 log()  { echo -e "${GREEN}[OK]${NC}  $1"; }
 warn() { echo -e "${YELLOW}[SKIP]${NC} $1"; }
 info() { echo -e "${CYAN}[INFO]${NC} $1"; }
+
+# Copy a directory's contents (incl. hidden files) into dest.
+# NOT `cp -r src dest`: when dest already exists that nests src INSIDE dest
+# (e.g. ~/.custom/.custom on a second run).
+sync_dir() {
+    local src="$1"
+    local dest="$2"
+    mkdir -p "$dest"
+    cp -R "$src/." "$dest/"
+}
 
 # --- Clone or pull repo if running from a fresh system ---
 if [[ ! -d "$REPO_DIR/.git" ]]; then
@@ -72,39 +85,37 @@ sync_all() {
 
         # .custom/
         if [[ -d "$REPO_DIR/dotfiles/.custom" ]]; then
-            cp -r "$REPO_DIR/dotfiles/.custom" "$HOME/.custom"
+            sync_dir "$REPO_DIR/dotfiles/.custom" "$HOME/.custom"
             log "~/.custom/"
         fi
 
         # .zfunc/
         if [[ -d "$REPO_DIR/dotfiles/.zfunc" ]]; then
-            cp -r "$REPO_DIR/dotfiles/.zfunc" "$HOME/.zfunc"
+            sync_dir "$REPO_DIR/dotfiles/.zfunc" "$HOME/.zfunc"
             log "~/.zfunc/"
         fi
 
         # .warp/
         if [[ -d "$REPO_DIR/dotfiles/.warp" ]]; then
-            mkdir -p "$HOME/.warp"
-            cp -r "$REPO_DIR/dotfiles/.warp/"* "$HOME/.warp/" 2>/dev/null || true
+            sync_dir "$REPO_DIR/dotfiles/.warp" "$HOME/.warp"
             log "~/.warp/"
         fi
 
         # .powershell/
         if [[ -d "$REPO_DIR/dotfiles/.powershell" ]]; then
-            cp -r "$REPO_DIR/dotfiles/.powershell" "$HOME/.powershell"
+            sync_dir "$REPO_DIR/dotfiles/.powershell" "$HOME/.powershell"
             log "~/.powershell/"
         fi
 
         # .windows-terminal/
         if [[ -d "$REPO_DIR/dotfiles/.windows-terminal" ]]; then
-            cp -r "$REPO_DIR/dotfiles/.windows-terminal" "$HOME/.windows-terminal"
+            sync_dir "$REPO_DIR/dotfiles/.windows-terminal" "$HOME/.windows-terminal"
             log "~/.windows-terminal/"
         fi
 
         # .vim/colors/
         if [[ -d "$REPO_DIR/dotfiles/.vim/colors" ]]; then
-            mkdir -p "$HOME/.vim"
-            cp -r "$REPO_DIR/dotfiles/.vim/colors" "$HOME/.vim/colors"
+            sync_dir "$REPO_DIR/dotfiles/.vim/colors" "$HOME/.vim/colors"
             log "~/.vim/colors/"
         fi
 
@@ -129,8 +140,7 @@ sync_all() {
 
         # local/share/calendar/
         if [[ -d "$REPO_DIR/dotfiles/local/share/calendar" ]]; then
-            mkdir -p "$HOME/local/share"
-            cp -r "$REPO_DIR/dotfiles/local/share/calendar" "$HOME/local/share/calendar"
+            sync_dir "$REPO_DIR/dotfiles/local/share/calendar" "$HOME/local/share/calendar"
             log "~/local/share/calendar/"
         fi
     else
@@ -154,7 +164,7 @@ sync_all() {
         done
 
         if [[ -d "$REPO_DIR/vscode/snippets" ]]; then
-            cp -r "$REPO_DIR/vscode/snippets" "$VSCODE_USER/snippets"
+            sync_dir "$REPO_DIR/vscode/snippets" "$VSCODE_USER/snippets"
             log "VSCode snippets/"
         fi
 
@@ -236,7 +246,13 @@ sync_all() {
         mkdir -p "$HOME/Library/Fonts"
         font_count=0
         while IFS= read -r -d '' font_file; do
-            cp "$font_file" "$HOME/Library/Fonts/" && ((font_count++)) || warn "Failed to copy $(basename "$font_file")"
+            # NOT `cp && ((font_count++)) || warn`: post-increment from 0
+            # returns status 1, firing a false warn on the first font
+            if cp "$font_file" "$HOME/Library/Fonts/"; then
+                font_count=$((font_count + 1))
+            else
+                warn "Failed to copy $(basename "$font_file")"
+            fi
         done < <(find "$REPO_DIR/.fonts" -type f \( -name "*.ttf" -o -name "*.otf" -o -name "*.woff" -o -name "*.woff2" \) -print0)
         if (( font_count > 0 )); then
             log "Fonts installed ($font_count files)"
@@ -250,7 +266,7 @@ sync_all() {
 
 # --- Prompt or force ---
 echo ""
-if [[ "${1:-}" = "--force" || "${1:-}" = "-f" ]]; then
+if $FORCE; then
     sync_all
 else
     info "This will overwrite existing config files in your home directory."
