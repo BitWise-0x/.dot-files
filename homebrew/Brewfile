@@ -5,85 +5,158 @@ tap "homebrew/services"
 tap "kavehtehrani/tap"
 tap "sidneys/homebrew"
 tap "teamookla/speedtest"
+# Search tool like grep, but optimized for programmers
 brew "ack"
+# Next-generation aircrack with lots of new features
 brew "aircrack-ng"
+# General-purpose data compression with high compression ratio
 brew "xz"
+# Perf monitoring CLI tool for Apple Silicon
 brew "asitop"
+# Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Programmable completion for Bash 4.2+
 brew "bash-completion@2"
+# Remove large files or passwords from Git history like git-filter-branch
 brew "bfg"
+# Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit
 brew "buildkit"
+# Extract files from Microsoft cabinet files
 brew "cabextract"
+# CD/DVD/Blu-ray premastering and recording software
 brew "cdrtools"
+# Work on automating classical cipher cracking in C
 brew "cifer"
+# Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima", restart_service: :changed
+# GNU multiple precision arithmetic library
 brew "gmp"
+# GNU File, Shell, and Text utilities
 brew "coreutils"
+# Apjanke's fork of the classic cowsay project
 brew "cowsay"
+# TCP over DNS tunnel
 brew "dns2tcp"
+# Bash, Zsh and Fish completion for Docker
 brew "docker-completion"
+# Pack, ship and run any application as a lightweight container
 brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
 brew "docker-buildx"
+# Isolated development environments using Docker
 brew "docker-compose"
+# Platform keystore credential helper for Docker
 brew "docker-credential-helper"
+# Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Collection of GNU find, xargs, and locate
 brew "findutils"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
 brew "gh"
+# Interpreter for PostScript and PDF
 brew "ghostscript"
+# Distributed revision control system
 brew "git"
+# Git extension for versioning large files
 brew "git-lfs"
+# GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU version of the tar archiving utility
 brew "gnu-tar"
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
 brew "go"
+# GNU grep, egrep and fgrep
 brew "grep"
+# World's fastest and most advanced password recovery utility
 brew "hashcat"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# Featureful UNIX password cracker
 brew "john"
+# Port-knock server
 brew "knock"
+# Library to render SVG files using Cairo
+brew "librsvg"
+# Text-based web browser
 brew "lynx"
+# Mac App Store command-line interface
 brew "mas"
+# Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# NCurses Disk Usage
 brew "ncdu"
+# Image manipulation
 brew "netpbm"
+# Port scanning utility for large networks
 brew "nmap"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# Manage multiple Node.js versions
 brew "nvm"
+# OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
+# General-purpose scripting language
 brew "php"
+# Print info and check PNG, JNG, and MNG files
 brew "pngcheck"
+# PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.10"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.12"
+# Utility that provides fast incremental file transfer
 brew "rsync"
+# Enhanced, multi-threaded syslogd
 brew "rsyslog"
-brew "ruby"
+# Powerful, clean, object-oriented scripting language
+brew "ruby", link: false
+# Terminal multiplexer with VT100/ANSI terminal emulation
 brew "screen"
+# SOcket CAT: netcat on steroids
 brew "socat"
+# Penetration testing for SQL injection and database servers
 brew "sqlmap"
+# TCP/IP packet demultiplexer
 brew "tcpflow"
+# Replay saved tcpdump files at arbitrary speeds
 brew "tcpreplay"
+# Analyze tcpdump output
 brew "tcptrace"
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Truncates a file to a given size
 brew "truncate"
+# Z for vim
 brew "v"
+# Vi 'workalike' with many additional features
 brew "vim"
+# Tool for creating isolated virtual python environments
 brew "virtualenv"
+# Python virtualenv extensions
 brew "virtualenvwrapper"
+# Internet file retriever
 brew "wget"
+# Library to create, extract, and modify Windows Imaging files
 brew "wimlib"
+# Utilities to create and convert Web Open Font File (WOFF) files
 brew "woff2"
+# PDF viewer
 brew "xpdf"
+# Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-brew "bramstein/webfonttools/sfnt2woff"
-brew "bramstein/webfonttools/sfnt2woff-zopfli"
-brew "kavehtehrani/tap/cloudflare-speed-cli"
-brew "teamookla/speedtest/speedtest"
 cask "font-hack-nerd-font"
+# Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2", args: { appdir: "/Applications" }
+# PKG software package uninstall tool
 cask "uninstallpkg"
+# Free messaging and calling application
 cask "wechat"
 mas "AdGuard for Safari", id: 1440147259
 mas "Apple Configurator", id: 1037126344
@@ -119,16 +192,17 @@ vscode "bierner.markdown-preview-github-styles"
 vscode "bradlc.vscode-tailwindcss"
 vscode "caarlos0.language-prometheus"
 vscode "calvert.crypto-ticker"
+vscode "cweijan.vscode-office"
 vscode "dbaeumer.vscode-eslint"
 vscode "docker.docker"
 vscode "editorconfig.editorconfig"
 vscode "esbenp.prettier-vscode"
 vscode "formulahendry.code-runner"
 vscode "george-alisson.html-preview-vscode"
-vscode "github.copilot-chat"
 vscode "github.github-vscode-theme"
 vscode "golang.go"
 vscode "haack.warp-companion"
+vscode "jamiewoodio.cisco"
 vscode "kameshkotwani.google-search"
 vscode "mechatroner.rainbow-csv"
 vscode "mikestead.dotenv"
@@ -154,10 +228,11 @@ vscode "ms-vscode.remote-repositories"
 vscode "openai.chatgpt"
 vscode "peetzweg.crypto-address-lens"
 vscode "pejmannikram.vscode-auto-scroll"
+vscode "prisma.prisma"
 vscode "redhat.vscode-yaml"
+vscode "redis.redis-for-vscode"
 vscode "seyyedkhandon.firacode"
 vscode "tailscale.vscode-tailscale"
-vscode "tal7aouy.icons"
 vscode "tamasfe.even-better-toml"
 vscode "tomoki1207.pdf"
 vscode "tumido.cron-explained"
@@ -165,8 +240,14 @@ vscode "unifiedjs.vscode-mdx"
 vscode "vadimcn.vscode-lldb"
 vscode "vscode-icons-team.vscode-icons"
 vscode "vue.volar"
+vscode "yusifaliyevpro.vscicons"
 vscode "yzane.markdown-pdf"
 vscode "zhuangtongfa.material-theme"
 go "github.com/cloudflare/cloudflare-go/cmd/flarectl"
 go "golang.org/x/tools/gopls"
 go "honnef.co/go/tools/cmd/staticcheck"
+npm "@upstash/cli"
+npm "corepack"
+npm "neonctl"
+npm "vercel"
+npm "wrangler"

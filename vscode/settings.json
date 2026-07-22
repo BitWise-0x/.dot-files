@@ -117,12 +117,6 @@
     "accessibility.signals.terminalBell": {
         "sound": "on"
     },
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": false,
-        "markdown": true,
-        "scminput": false
-    },
     "github.copilot.nextEditSuggestions.enabled": true,
     "github.copilot.chat.codesearch.enabled": true,
     "github.copilot.chat.alternateGptPrompt.enabled": true,
@@ -204,6 +198,11 @@
     "claudeCode.preferredLocation": "panel",
     "chat.viewSessions.orientation": "stacked",
     "claudeCode.environmentVariables": [],
-    "claudeCode.initialPermissionMode": "acceptEdits",
-    "workbench.colorTheme": "GitHub Dark Default"
+    "workbench.colorTheme": "GitHub Dark Default",
+    "chat.useClaudeHooks": true,
+    "chatgpt.followUpQueueMode": "queue",
+    "workbench.secondarySideBar.showLabels": false,
+    "markdown-pdf.executablePath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "chat.fontSize": 14,
+    "vscode-office.editMode": "ir"
 }
