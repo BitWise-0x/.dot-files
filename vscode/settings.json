@@ -204,5 +204,12 @@
     "workbench.secondarySideBar.showLabels": false,
     "markdown-pdf.executablePath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
     "chat.fontSize": 14,
-    "vscode-office.editMode": "ir"
+    "vscode-office.editMode": "ir",
+    "vscode-office.enableTelemetry": false,
+    "githubPullRequests.notifications": "pullRequests",
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
+	"terminal.integrated.gpuAcceleration": "off",
+    "github.copilot.chat.claudeOpus5Prompt.enabled": true,
+    "claudeCode.focusView": false,
+    "claudeCode.hideOnboarding": true
 }

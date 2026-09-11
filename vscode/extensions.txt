@@ -8,7 +8,6 @@ bierner.markdown-preview-github-styles
 bradlc.vscode-tailwindcss
 caarlos0.language-prometheus
 calvert.crypto-ticker
-cweijan.vscode-office
 dbaeumer.vscode-eslint
 docker.docker
 editorconfig.editorconfig
@@ -16,6 +15,7 @@ esbenp.prettier-vscode
 formulahendry.code-runner
 george-alisson.html-preview-vscode
 github.github-vscode-theme
+github.vscode-pull-request-github
 golang.go
 haack.warp-companion
 jamiewoodio.cisco
