@@ -31,8 +31,6 @@ export HOMEBREW_PREFIX=$(brew --prefix)
 # GNU core utilities update from brew
 # export $(brew --prefix coreutils)/libexec/gnubin:$PATH
 export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
-# Ruby
-export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 # Python
 export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
 # Python env
