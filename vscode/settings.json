@@ -1,4 +1,6 @@
 {
+    "http.electronFetch": true,
+    "http.proxySupport": "off",
     "security.workspace.trust.untrustedFiles": "open",
     "editor.stickyScroll.enabled": true,
     "explorer.sortOrder": "type",
@@ -43,7 +45,6 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true,
-    "editor.minimap.enabled": false,
     "editor.accessibilitySupport": "off",
     "editor.largeFileOptimizations": false,
     "editor.unicodeHighlight.invisibleCharacters": false,
@@ -211,5 +212,14 @@
 	"terminal.integrated.gpuAcceleration": "off",
     "github.copilot.chat.claudeOpus5Prompt.enabled": true,
     "claudeCode.focusView": false,
-    "claudeCode.hideOnboarding": true
+    "claudeCode.hideOnboarding": true,
+    "yaml.disableSchemaDetection": [
+        "**/.github/workflows/*.yml",
+        "**/.github/workflows/*.yaml",
+        "**/.gitea/workflows/*.yml",
+        "**/.gitea/workflows/*.yaml",
+        "**/.forgejo/workflows/*.yml",
+        "**/.forgejo/workflows/*.yaml"
+    ],
+    "editor.minimap.enabled": false
 }

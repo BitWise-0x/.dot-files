@@ -15,6 +15,7 @@ esbenp.prettier-vscode
 formulahendry.code-runner
 george-alisson.html-preview-vscode
 github.github-vscode-theme
+github.vscode-github-actions
 github.vscode-pull-request-github
 golang.go
 haack.warp-companion
@@ -42,6 +43,7 @@ ms-vscode.cpptools
 ms-vscode.powershell
 ms-vscode.remote-repositories
 openai.chatgpt
+openai.codex-audio
 peetzweg.crypto-address-lens
 pejmannikram.vscode-auto-scroll
 prisma.prisma
