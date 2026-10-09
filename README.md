@@ -32,7 +32,7 @@ git clone https://github.com/BitWise-0x/.dot-files && cd .dot-files && ./bootstr
 ├── vscode/              VSCode settings, keybindings, MCP, snippets, extensions
 ├── homebrew/            Brewfile (all Homebrew packages)
 ├── tools/               System tool configs
-│   ├── docker/            Docker daemon config
+│   ├── docker/            Docker client config
 │   ├── colima/            Colima VM settings
 │   ├── gh/                GitHub CLI config
 │   └── git/               Global gitignore rules
@@ -111,12 +111,11 @@ Syncs dotfiles and configs from the repo to your system.
 <img src="https://img.shields.io/badge/VSCode-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white" alt="VSCode"/>
 <img src="https://img.shields.io/badge/Vim-019733?style=flat-square&logo=vim&logoColor=white" alt="Vim"/>
 <img src="https://img.shields.io/badge/Warp-01A4FF?style=flat-square&logo=warp&logoColor=white" alt="Warp"/>
-<img src="https://img.shields.io/badge/iTerm2-000000?style=flat-square&logo=iterm2&logoColor=white" alt="iTerm2"/>
 
 - VSCode: settings, keybindings, MCP servers, snippets, extensions
-- iTerm2: color schemes (auto-imported), font configuration
+- Warp: settings, tab configs (pane layouts), custom themes (synced to `~/.warp/`)
 - Vim: custom `.vimrc` and color schemes
-- Warp & Windows Terminal configs
+- Windows Terminal config (cross-machine)
 
 </td>
 </tr>
@@ -130,7 +129,7 @@ Syncs dotfiles and configs from the repo to your system.
 <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js"/>
 <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
 
-- **Languages**: Python 3.12, Node.js, PHP, Ruby
+- **Languages**: Python 3 (via Homebrew deps), Node.js (via nvm), PHP
 - **Version Mgmt**: nvm, virtualenv, virtualenvwrapper
 - **Containers**: Docker, Docker Compose, Colima
 - **Git**: git, git-lfs, GnuPG for commit signing
@@ -158,7 +157,7 @@ Syncs dotfiles and configs from the repo to your system.
 
 ### Fonts
 
-MesloLGS NF (Regular, Bold, Italic, Bold Italic) — optimized for Powerlevel10k
+Nerd Fonts and Powerline fonts: MesloLGS NF (optimized for Powerlevel10k), FiraCode, Hack, 3270, Inconsolata, Source Code Pro. `setup.sh` fetches the MesloLGS NF set; `bootstrap.sh` installs the full `.fonts/` collection.
 
 </td>
 </tr>

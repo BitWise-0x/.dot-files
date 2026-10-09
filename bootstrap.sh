@@ -95,9 +95,24 @@ sync_all() {
             log "~/.zfunc/"
         fi
 
-        # .warp/
+        # .warp/ — themes and tab configs are portable (safe to overwrite);
+        # settings.toml is rewritten by Warp on every change, so seed it only
+        # when absent to avoid clobbering live preferences on an active machine.
         if [[ -d "$REPO_DIR/dotfiles/.warp" ]]; then
-            sync_dir "$REPO_DIR/dotfiles/.warp" "$HOME/.warp"
+            for sub in themes tab_configs; do
+                if [[ -d "$REPO_DIR/dotfiles/.warp/$sub" ]]; then
+                    sync_dir "$REPO_DIR/dotfiles/.warp/$sub" "$HOME/.warp/$sub"
+                fi
+            done
+            if [[ -f "$REPO_DIR/dotfiles/.warp/settings.toml" ]]; then
+                if [[ -f "$HOME/.warp/settings.toml" ]]; then
+                    warn "~/.warp/settings.toml exists — not overwriting (Warp manages it)"
+                else
+                    mkdir -p "$HOME/.warp"
+                    cp "$REPO_DIR/dotfiles/.warp/settings.toml" "$HOME/.warp/settings.toml"
+                    log "~/.warp/settings.toml (seeded)"
+                fi
+            fi
             log "~/.warp/"
         fi
 

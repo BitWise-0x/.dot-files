@@ -2,7 +2,7 @@
 #
 # setup.sh — Fresh macOS dev environment setup.
 #
-# Installs Xcode CLT, Homebrew, packages, Oh-My-Zsh, fonts, and iTerm2 themes.
+# Installs Xcode CLT, Homebrew, packages, Oh-My-Zsh, and fonts.
 # Run this first on a new system, then use ./bootstrap.sh to sync configs.
 #
 
@@ -185,7 +185,7 @@ if [[ -f "${HOMEBREW_PREFIX}/opt/fzf/install" ]]; then
 fi
 
 brew_install cowsay
-brew_install --cask --appdir="/Applications" iterm2
+brew_install --cask --appdir="/Applications" warp
 brew_install ffmpeg
 brew_install asitop
 # brew_install --cask --appdir="/Applications" multipass
@@ -242,24 +242,18 @@ for font in "${MESLO_FONTS[@]}"; do
 done
 
 cp "${FONT_DIR}/"* "$HOME/Library/Fonts/" 2>/dev/null || echo "⚠ No fonts to copy — downloads may have failed"
-echo 'Select font in iTerm2: Preferences > Profile > Text > Font > MesloLGS NF'
+echo 'Select font in Warp: Settings > Appearance > Text > Font > MesloLGS NF'
 echo 'Select font in VSCode: settings.json > "editor.fontFamily": "MesloLGS NF"'
 
 # ============================================================================
-# 11. iTerm2 Color Schemes
+# 11. Warp Terminal
 # ============================================================================
 
-ITERM_SCHEMES="${HOME}/Downloads/iterm2-color-schemes"
-if [[ ! -d "$ITERM_SCHEMES" ]]; then
-    git clone https://github.com/mbadolato/iTerm2-Color-Schemes "$ITERM_SCHEMES"
-fi
-if [[ -x "${ITERM_SCHEMES}/tools/import-scheme.sh" ]]; then
-    "${ITERM_SCHEMES}/tools/import-scheme.sh" -v "${ITERM_SCHEMES}/schemes/"*
-else
-    echo "⚠ iTerm2 color schemes unavailable (clone failed?) — skipping import"
-fi
-rm -rf "$ITERM_SCHEMES"
-echo "Restart iTerm2 and set theme: Preferences > Profile > Colors > Color Presets > Argonaut"
+# Warp config (settings.toml, launch_configurations/, themes/, tab_configs/)
+# is version-controlled in this repo under dotfiles/.warp/ and synced to
+# ~/.warp/ by bootstrap.sh. Nothing to download here.
+echo 'Warp config syncs via ./bootstrap.sh (~/.warp/).'
+echo 'Set theme in Warp: Settings > Appearance > Themes (custom themes live in ~/.warp/themes/).'
 
 # ============================================================================
 # Done
