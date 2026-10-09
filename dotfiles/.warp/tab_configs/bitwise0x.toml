@@ -1,0 +1,48 @@
+name = "Bitwise0x"
+color = "blue"
+
+[[panes]]
+id = "root"
+split = "vertical"
+children = ["top_row", "bottom_row"]
+
+[[panes]]
+id = "top_row"
+split = "horizontal"
+children = ["top_left", "top_mid", "top_right"]
+
+[[panes]]
+id = "bottom_row"
+split = "horizontal"
+children = ["bottom_left", "bottom_mid", "bottom_right"]
+
+[[panes]]
+id = "top_left"
+type = "terminal"
+directory = "~"
+
+[[panes]]
+id = "top_mid"
+type = "terminal"
+directory = "~"
+is_focused = true
+
+[[panes]]
+id = "top_right"
+type = "terminal"
+directory = "~"
+
+[[panes]]
+id = "bottom_left"
+type = "terminal"
+directory = "~"
+
+[[panes]]
+id = "bottom_mid"
+type = "terminal"
+directory = "~"
+
+[[panes]]
+id = "bottom_right"
+type = "terminal"
+directory = "~"

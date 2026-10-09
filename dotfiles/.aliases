@@ -50,8 +50,22 @@ alias egrep='egrep --color=auto'
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
-# Get macOS Software Updates, and update Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm install -g npm@latest; npm update -g'
+# Update everything: Homebrew formulae/casks, App Store apps, pnpm, then macOS.
+# Node/npm are managed per-version by nvm, so they are intentionally left out here.
+update() {
+  echo "==> Homebrew"
+  brew update && brew upgrade && brew autoremove && brew cleanup
+  if command -v mas >/dev/null 2>&1; then
+    echo "==> App Store (mas)"
+    mas upgrade
+  fi
+  if command -v pnpm >/dev/null 2>&1; then
+    echo "==> pnpm"
+    pnpm self-update
+  fi
+  echo "==> macOS software update (may prompt for a restart)"
+  sudo softwareupdate -i -a
+}
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
