@@ -1,10 +1,6 @@
 # thanks timo
 export PS1="\[\033[1;36m\]\u\[\033[01;37m\]@\[\033[01;34m\]\h\[\033[01;30m\][\[\033[01;37m\]\w\[\033[01;30m\]]\[\033[01;32m\]\[\033[00m\]+ "
 
-# VSCode Shell Integration
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path bash)"
-
-
 # History
 # http://lpetr.org/blog/archives/preserve-bash-history
 export HISTSIZE=50000
@@ -42,13 +38,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 # Set language character set
 export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
 # Compilation flags
 export ARCHFLAGS="-arch $(uname -m)"
-# Docker w/colima
-export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}"
+# Docker: active context is colima (~/.docker/config.json); DOCKER_HOST unset so `docker context use` works
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X'
 # Avoid issues with `gpg` as installed via Homebrew.

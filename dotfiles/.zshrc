@@ -5,10 +5,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# VSCode Shell Integration
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-
-
 # Exports - History
 # https://unix.stackexchange.com/questions/273861/unlimited-history-in-zsh
 export HISTFILE=~/.zsh_history
@@ -27,9 +23,7 @@ elif [ -x /usr/local/bin/brew ]; then
     # Intel
     eval "$(/usr/local/bin/brew shellenv)"
 fi
-export HOMEBREW_PREFIX=$(brew --prefix)
 # GNU core utilities update from brew
-# export $(brew --prefix coreutils)/libexec/gnubin:$PATH
 export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 # Python
 export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
@@ -43,19 +37,17 @@ elif command -v virtualenvwrapper.sh &> /dev/null; then
 fi
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8'
-# Node / NVM
+# Node / NVM (loaded by the oh-my-zsh nvm plugin, lazily; .nvmrc autoload on cd)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+zstyle ':omz:plugins:nvm' lazy yes
+zstyle ':omz:plugins:nvm' lazy-cmd pnpm npx corepack
+zstyle ':omz:plugins:nvm' autoload yes
+zstyle ':omz:plugins:nvm' silent-autoload yes
 # Set language character set
 export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
 # Compilation flags
 export ARCHFLAGS="-arch $(uname -m)"
-# Docker w/colima
-export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
-# Highlight section titles in manual pages.
-export LESS_TERMCAP_md="${yellow}"
+# Docker: active context is colima (~/.docker/config.json); DOCKER_HOST unset so `docker context use` works
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X'
 # Avoid issues with `gpg` as installed via Homebrew.
@@ -136,13 +128,10 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 # git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-plugins=(git zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
-# # source autocomplete plugin
-# source $ZSH_CUSTOM/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
-# # source syntax highlighting plugin
-# source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
-# # source auto suggestions plugin
-# source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+plugins=(git nvm zsh-autosuggestions zsh-autocomplete zsh-syntax-highlighting)
+
+# custom completions dropped here by utilities; must be on fpath before compinit runs (oh-my-zsh runs it)
+fpath+=~/.zfunc
 
 # source oh-my-zsh (must be after plugins array)
 source $ZSH/oh-my-zsh.sh
@@ -192,34 +181,17 @@ setopt AUTO_CD
 setopt GLOBSTAR_SHORT
 
 
-# ZSH - import custom completions import that are placed here by utilities
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
-
-
 # FZF
 if command -v fzf &> /dev/null; then
   source <(fzf --zsh)
 fi
 
 
-# Universal environment activation hooks NPM and Python
-# If .nvmrc is present, use nvm | If .venv is present, use workon
-# Example of .nvmrc content:
-#   22.18.0
+# Python env activation hook: if a .venv file is present, workon its contents
+# (.nvmrc handling is the nvm plugin's autoload, configured above)
 # Example of .venv content (must exist):
 #   ultimate-scraper
 autoload -U add-zsh-hook
-
-load-nvmrc() {
-  if [ -f .nvmrc ]; then
-    nvm use
-  fi
-}
-# Only add the hook if it hasn't been added already
-if [[ -z "${(M)chpwd_functions[@]:#load-nvmrc}" ]]; then
-  add-zsh-hook chpwd load-nvmrc
-fi
-load-nvmrc
 
 workon_on_cd() {
   if [ -f .venv ]; then
@@ -231,3 +203,6 @@ if [[ -z "${(M)chpwd_functions[@]:#workon_on_cd}" ]]; then
   add-zsh-hook chpwd workon_on_cd
 fi
 workon_on_cd
+
+# Cloudflare — wrangler authenticates via OAuth (`wrangler login`); no API token in the env.
+export CLOUDFLARE_ACCOUNT_ID="f38ff5f5924cc421c716769450235c96"

@@ -7,6 +7,12 @@ tap "sidneys/homebrew"
 tap "teamookla/speedtest"
 # Search tool like grep, but optimized for programmers
 brew "ack"
+# GNU multiple precision arithmetic library
+brew "gmp"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
 # Next-generation aircrack with lots of new features
 brew "aircrack-ng"
 # General-purpose data compression with high compression ratio
@@ -26,9 +32,7 @@ brew "cdrtools"
 # Work on automating classical cipher cracking in C
 brew "cifer"
 # Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima"
-# GNU multiple precision arithmetic library
-brew "gmp"
+brew "colima", restart_service: :changed
 # GNU File, Shell, and Text utilities
 brew "coreutils"
 # TCP over DNS tunnel
@@ -81,6 +85,10 @@ brew "john"
 brew "knock"
 # Library to render SVG files using Cairo
 brew "librsvg"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# Additional guest agents for Lima
+brew "lima-additional-guestagents"
 # Text-based web browser
 brew "lynx"
 # Mac App Store command-line interface
@@ -93,8 +101,6 @@ brew "ncdu"
 brew "netpbm"
 # Port scanning utility for large networks
 brew "nmap"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Manage multiple Node.js versions
 brew "nvm"
 # OpenBSD freely-licensed SSH connectivity tools
@@ -105,14 +111,14 @@ brew "php"
 brew "pngcheck"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Enhanced, multi-threaded syslogd
 brew "rsyslog"
 # Terminal multiplexer with VT100/ANSI terminal emulation
 brew "screen"
+# Autoformat shell script source code
+brew "shfmt"
 # SOcket CAT: netcat on steroids
 brew "socat"
 # Penetration testing for SQL injection and database servers
@@ -141,12 +147,8 @@ brew "wimlib"
 brew "woff2"
 # PDF viewer
 brew "xpdf", link: false
-# Fish shell like syntax highlighting for zsh
-brew "zsh-syntax-highlighting"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono"
-# Terminal emulator as alternative to Apple's Terminal app
-cask "iterm2", args: { appdir: "/Applications" }
 # PKG software package uninstall tool
 cask "uninstallpkg"
 # Free messaging and calling application
@@ -172,8 +174,3 @@ mas "Xcode", id: 497799835
 go "github.com/cloudflare/cloudflare-go/cmd/flarectl"
 go "golang.org/x/tools/gopls"
 go "honnef.co/go/tools/cmd/staticcheck"
-npm "@upstash/cli"
-npm "corepack"
-npm "neonctl"
-npm "vercel"
-npm "wrangler"
