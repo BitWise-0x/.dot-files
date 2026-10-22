@@ -21,6 +21,7 @@ github.vscode-github-actions
 github.vscode-pull-request-github
 golang.go
 haack.warp-companion
+hediet.vscode-drawio
 jamiewoodio.cisco
 kameshkotwani.google-search
 mechatroner.rainbow-csv
@@ -44,8 +45,6 @@ ms-vscode.cpp-devtools
 ms-vscode.cpptools
 ms-vscode.powershell
 ms-vscode.remote-repositories
-openai.chatgpt
-openai.codex-audio
 peetzweg.crypto-address-lens
 pejmannikram.vscode-auto-scroll
 prisma.prisma

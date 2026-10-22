@@ -13,6 +13,8 @@ brew "gmp"
 brew "shellcheck"
 # Static checker for GitHub Actions workflow files
 brew "actionlint"
+# Simple, modern, secure file encryption
+brew "age"
 # Next-generation aircrack with lots of new features
 brew "aircrack-ng"
 # General-purpose data compression with high compression ratio
@@ -111,6 +113,8 @@ brew "php"
 brew "pngcheck"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Utility that provides fast incremental file transfer
 brew "rsync"
 # Enhanced, multi-threaded syslogd
