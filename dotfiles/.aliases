@@ -33,7 +33,7 @@ alias dsdf='docker system df'
 alias dsp='docker system prune'
 
 # stacks - BitWise.lan deploy script
-stacks() { ~/_GIT/___LOCAL/orchestration/Orchestration-BitWise/Deploy.sh "$@"; }
+stacks() { ~/_GIT/___LOCAL/Orchestration/Orchestration-BitWise/Deploy.sh "$@"; }
 
 # git
 alias wow='git status -s'

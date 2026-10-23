@@ -249,7 +249,7 @@
 		"**/node_modules/**": true,
 		"**/__pycache__/**": true,
 		"**/.venv/**": true,
-		"**/_clone/**": true,
+		"**/_CLONE/**": true,
 	},
 	"search.exclude": {
 		"**/.next": true,
@@ -258,10 +258,10 @@
 		"**/yarn.lock": true,
 		"**/__pycache__": true,
 		"**/.venv": true,
-		"**/_clone": true,
+		"**/_CLONE": true,
 	},
 	"python.analysis.exclude": [
-		"**/_clone/**",
+		"**/_CLONE/**",
 		"**/node_modules/**",
 		"**/.venv/**",
 	],
