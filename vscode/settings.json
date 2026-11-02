@@ -1,7 +1,7 @@
 {
 	"http.electronFetch": true,
 	"http.proxySupport": "off",
-	"security.workspace.trust.untrustedFiles": "prompt",
+	"security.workspace.trust.untrustedFiles": "open",
 	"editor.stickyScroll.enabled": true,
 	"explorer.sortOrder": "type",
 	"explorer.confirmDragAndDrop": false,
@@ -35,6 +35,7 @@
 	"git.openRepositoryInParentFolders": "never",
 	"explorer.confirmDelete": false,
 	"workbench.editorAssociations": {
+		"*.copilotmd": "vscode.markdown.preview.editor",
 		"*.odt": "default",
 		"*.plist": "default",
 		"*.md": "vscode.markdown.preview.editor",
@@ -141,7 +142,8 @@
 	"python.analysis.autoImportCompletions": true,
 	"js/ts.updateImportsOnFileMove.enabled": "always",
 	"go.toolsManagement.autoUpdate": true,
-	"cmake.configureOnOpen": true,
+	"cmake.configureOnOpen": false,
+	"dotnet.defaultSolution": "disable",
 	"search.defaultViewMode": "tree",
 	"scm.defaultViewMode": "tree",
 	"explorer.fileNesting.expand": false,
@@ -270,4 +272,7 @@
 	"workbench.diffEditorAssociations": {
 		"*.md": "vscode.markdown.editor",
 	},
+	"security.allowedUNCHosts": ["nas"],
+	"powershell.promptToUpdatePowerShell": false,
+	"chat.permissions.default": "autoApprove",
 }
